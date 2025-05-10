@@ -3,4 +3,247 @@
 *:before,
 *:after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/******* Body Layout ***************/
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  background-image: url('/images/site/small_check.jpg');
+  background-repeat: repeat;
+  background-size: auto;
+  color: #333;
+  /* Added color for text */
+  max-width: 960px;
+  margin: 0 auto;
+  margin-top: 1rem;
+  padding: 0;
+  border: 4px solid #645220;
+  /* Blue border wrapping the full content */
+  background-clip: padding-box;
+}
+
+.section {
+  padding: 1rem;
+}
+
+/******* Header ***************/
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #fff;
+  color: #000;
+  margin: 0;
+}
+
+.siteName a {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #000;
+  text-decoration: none;
+}
+
+#tools a {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: #000000;
+  text-decoration: none;
+  font-weight: bold; 
+}
+
+
+/******* Navigation ***************/
+nav {
+  background-color: #1b1b2f;
+  padding: 0.75rem;
+  text-align: center;
+  margin: 0;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 0.75rem;
+  font-weight: 500;
+}
+
+/******* Main Content ***************/
+main {
+  padding: 1rem;
+  margin: 0;
+  background-color: white;
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+/******* Hero Section ***************/
+.hero {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin: 40px auto;
+  overflow: hidden;
+}
+
+.hero-image {
+  width: 100%;
+  display: block;
+}
+
+.hero-text {
+  position: absolute;
+  top: 10%;
+  background: rgba(255, 255, 255, 0.788);
+  backdrop-filter: blur(2px);
+  padding: 30px 35px;
+  border: 2px solid #ffd621;
+  border-radius: 8px;
+  max-width: 350px;
+  color: #000000;
+  font-family: Arial, sans-serif;
+}
+
+.hero-text h2 {
+  margin: 0 0 15px;
+  font-size: 28px;
+  color: #4b2d00;
+  font-weight: bold;
+}
+
+.hero-text ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+  font-weight: bold;
+}
+
+.hero-text li {
+  margin-bottom: 8px;
+}
+
+.button {
+  display: inline-block;
+  background-color: #bbaa73;
+  color: black;
+  padding: 8px 16px;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #227892;
+}
+
+/******* Upgrades & Reviews ***************/
+.upgrades-reviews {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+.upgrades {
+  order: 2;
+  margin-bottom: 2rem;
+}
+
+.reviews {
+  order: 1;
+  margin-bottom: 2rem;
+}
+
+.upgrades h2,
+.reviews h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+  /* Set color for headings */
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.item {
+  background-color: #5f5639;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.item img {
+  width: 50px;
+  height: auto;
+}
+
+.item a {
+  display: block;
+  margin-top: 0.5rem;
+  color: white;
+  /* Ensure text is readable */
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.reviews ul {
+  list-style: disc;
+  padding-left: 1rem;
+  color: #000000;
+  font-size: 1.3rem; 
+}
+
+/******* Footer ***************/
+footer {
+  margin: 0;
+  padding: 1rem;
+  border-top: 1px solid #ccc;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #090a0a;
+  background-color: #fff;
+}
+
+/******* Responsive Design ***************/
+@media screen and (min-width: 768px) {
+
+
+  .hero {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+  
+  .section {
+    padding: 2rem;
+  }
+
+  .hero-text,
+  .hero-image {
+    flex: 1;
+    padding: 1rem;
+  }
+
+  .upgrades-reviews {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .upgrades,
+  .reviews {
+    order: 0;
+    /* reset order */
+    flex: 1;
+    padding: 1rem;
+    margin-bottom: 0;
+  }
 }
