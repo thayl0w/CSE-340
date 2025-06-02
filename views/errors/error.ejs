@@ -1,0 +1,30 @@
+<!-- <%- include('../partials/header') %> -->
+
+<main>
+    <h1>
+        <%= title || "Unexpected Error" %>
+    </h1>
+    <p>
+        <%= message || "Something went wrong. Please try again later." %>
+    </p>
+    <div>
+        <img src="https://inzonedesigncom6f7d8.zapwp.com/q:i/r:0/wp:1/w:1684/u:https://inzonedesign.com/wp-content/uploads/2021/02/funny-404-error-pages-pixar.jpg"
+            alt="Fun creature" class="creature"
+            style="width: 90%; max-width: 900px; margin: 30px auto; display:block; animation: bounce 1.5s infinite;" />
+        <p style="text-align:center;">Don't worry! This little guy is just asconfused as you are.</p>
+        <p style="text-align:center;">Try heading back to the <a href="">homepage</a> and let's start fresh.</p>
+    </div>
+    <style>
+        @keyframes bounce {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+    </style>
+</main>
+
+<!-- <%- include('../partials/footer') %> -->

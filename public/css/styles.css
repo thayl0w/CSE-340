@@ -1,11 +1,11 @@
 /******* Change Box Model ***************/
-*,
+/* *,
 *:before,
 *:after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
+} */
 
 /******* Body Layout ***************/
 body {
@@ -21,7 +21,7 @@ body {
   margin: 0 auto;
   margin-top: 1rem;
   padding: 0;
-  border: 4px solid #645220;
+  border: 4px solid #387d94;
   /* Blue border wrapping the full content */
   background-clip: padding-box;
 }
@@ -51,11 +51,9 @@ header {
 #tools a {
   font-size: 0.9rem;
   text-transform: uppercase;
-  color: #000000;
+  color: #595959;
   text-decoration: none;
-  font-weight: bold; 
 }
-
 
 /******* Navigation ***************/
 nav {
@@ -86,11 +84,12 @@ nav ul {
 nav li {
   display: inline;
 }
+
 /******* Main Content ***************/
 main {
   padding: 1rem;
   margin: 0;
-  background-color: rgb(255, 255, 255);
+  background-color: white;
 }
 
 h1 {
@@ -115,20 +114,20 @@ h1 {
 .hero-text {
   position: absolute;
   top: 10%;
-  background: rgba(165, 165, 165, 0.788);
+  background: rgba(255, 255, 255, 0.788);
   backdrop-filter: blur(2px);
   padding: 30px 35px;
-  border: 2px solid #000000;
+  border: 2px solid #387d94;
   border-radius: 8px;
   max-width: 350px;
-  color: #000000;
+  color: #387d94;
   font-family: Arial, sans-serif;
 }
 
 .hero-text h2 {
   margin: 0 0 15px;
   font-size: 28px;
-  color: #4b2d00;
+  color: #387d94;
   font-weight: bold;
 }
 
@@ -141,12 +140,13 @@ h1 {
 
 .hero-text li {
   margin-bottom: 8px;
+  color: #2a5e6f;
 }
 
 .button {
   display: inline-block;
-  background-color: #FA9B6A;
-  color: black;
+  background-color:#1e6076;
+  color: white;
   padding: 8px 16px;
   font-weight: bold;
   text-decoration: none;
@@ -155,7 +155,7 @@ h1 {
 }
 
 .button:hover {
-  background-color: #227892;
+  background-color: #008bb5;
 }
 
 /******* Upgrades & Reviews ***************/
@@ -190,7 +190,7 @@ h1 {
 }
 
 .item {
-  background-color: #FFB347;
+  background-color: #2a5e6f;
   padding: 0.5rem;
   text-align: center;
 }
@@ -203,7 +203,7 @@ h1 {
 .item a {
   display: block;
   margin-top: 0.5rem;
-  color: rgb(0, 0, 0);
+  color: white;
   /* Ensure text is readable */
   font-weight: bold;
   text-decoration: underline;
@@ -212,8 +212,8 @@ h1 {
 .reviews ul {
   list-style: disc;
   padding-left: 1rem;
-  color: #000000;
-  font-size: 1.3rem; 
+  color: #333;
+  /* Set color for review text */
 }
 
 /******* Footer ***************/
@@ -222,9 +222,57 @@ footer {
   padding: 1rem;
   border-top: 1px solid #ccc;
   text-align: center;
-  font-size: 1.2rem;
-  color: #ffffff;
-  background-color: #2B4453 ;
+  font-size: 0.9rem;
+  color: #595959;
+  background-color: #fff;
+}
+
+
+#inv-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+#inv-display li {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+  background: #fff;
+  transition: box-shadow 0.3s;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* centers content horizontally */
+  text-align: center;
+  /* centers text inside children */
+}
+
+#inv-display li:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#inv-display li img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.namePrice {
+  margin-top: 0.5rem;
+}
+
+.namePrice h2 {
+  margin: 0;
+}
+
+.namePrice span {
+  color: green;
+  font-weight: bold;
 }
 
 /******* Responsive Design ***************/
