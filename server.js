@@ -31,7 +31,8 @@ app.use(express.urlencoded({ extended: true }))
 /* ***********************
  * Routes
  *************************/
-app.use(static)
+// app.use(static)
+app.use(express.static("public"))
 
 // Index route
 // app.get("/", function(req, res) {

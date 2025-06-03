@@ -275,6 +275,44 @@ footer {
   font-weight: bold;
 }
 
+/* public/css/vehicle.css */
+
+.vehicle-detail-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.vehicle-detail-container {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  margin-top: 2rem;
+  justify-content: center;
+}
+
+.vehicle-detail-container img {
+  width: 500px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.vehicle-detail-info {
+  flex: 1;
+  /* min-width: 250px; */
+  max-width: 600px;
+}
+
+.vehicle-detail-info h2 {
+  margin-bottom: 0;
+}
+
+.vehicle-detail-info p {
+  margin: 0.5em 0;
+}
+
 /******* Responsive Design ***************/
 @media screen and (min-width: 768px) {
 
