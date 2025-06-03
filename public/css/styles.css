@@ -379,3 +379,16 @@ html, body {
     grid-template-columns: 1fr;
   }
 }
+
+/* navigation mobile view fix */
+@media screen and (max-width: 767px) {
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  nav li {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}
