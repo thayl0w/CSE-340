@@ -347,3 +347,35 @@ footer {
     margin-bottom: 0;
   }
 }
+
+/* Prevent horizontal scroll on small screens */
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+@media screen and (max-width: 767px) {
+  nav {
+    flex-wrap: wrap;
+  }
+
+  .vehicle-detail-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .vehicle-detail-container img {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .vehicle-detail-info {
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
