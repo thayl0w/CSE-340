@@ -1,0 +1,24 @@
+<main>
+    <h1>Add New Classification</h1>
+
+    <% if (messages && messages.notice) { %>
+      <div class="notice"><%= messages.notice %></div>
+    <% } %>
+    
+    <% if (messages && messages.error) { %>
+      <div class="error"><%= messages.error %></div>
+    <% } %>
+    
+    <form action="/inv/add-classification" method="post">
+      <label for="classification_name">Classification Name</label>
+      <input 
+        type="text" 
+        id="classification_name" 
+        name="classification_name" 
+        required 
+        pattern="^[A-Za-z0-9]+$"
+        title="No spaces or special characters allowed."
+      >
+      <button type="submit">Add Classification</button>
+    </form>
+</main>

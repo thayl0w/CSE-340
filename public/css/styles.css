@@ -313,6 +313,195 @@ footer {
   margin: 0.5em 0;
 }
 
+form.form-card {
+  max-width: 400px;
+  margin: 1rem auto;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background: #f9f9f9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+form.form-card label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+form.form-card input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form.form-card button {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.75rem;
+  background: #2a5e6f;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.form-link {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.form-link a {
+  color: #0077cc;
+  text-decoration: none;
+}
+
+.register-form {
+  max-width: 450px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fefefe;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.register-form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.register-form input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.register-form button {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #2a5e6f;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-helper {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.form-helper a {
+  color: #0077cc;
+  text-decoration: none;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input[type="password"],
+.password-wrapper input[type="text"] {
+  width: 100%;
+  padding-right: 0.5rem;
+  /* Make room for the icon */
+}
+
+.toggle-eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.password-rules {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Form labels and inputs */
+form label {
+  display: block;
+  margin-top: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="email"],
+form select,
+form textarea {
+  width: 100%;
+  padding: 8px 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  font-family: inherit;
+  resize: vertical;
+}
+
+/* Textarea height */
+form textarea {
+  min-height: 80px;
+}
+
+/* Submit button */
+form button[type="submit"] {
+  margin-top: 20px;
+  background-color: #387d94;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Flash and error message styles */
+.flash-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px 15px;
+  border: 1px solid #c3e6cb;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.error-messages {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+}
+
+.error-messages ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
 /******* Responsive Design ***************/
 @media screen and (min-width: 768px) {
 
@@ -345,50 +534,5 @@ footer {
     flex: 1;
     padding: 1rem;
     margin-bottom: 0;
-  }
-}
-
-/* Prevent horizontal scroll on small screens */
-html, body {
-  width: 100%;
-  overflow-x: hidden;
-}
-
-@media screen and (max-width: 767px) {
-  nav {
-    flex-wrap: wrap;
-  }
-
-  .vehicle-detail-container {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .vehicle-detail-container img {
-    width: 100%;
-    max-width: 350px;
-  }
-
-  .vehicle-detail-info {
-    max-width: 100%;
-    padding: 1rem;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* navigation mobile view fix */
-@media screen and (max-width: 767px) {
-  nav ul {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  nav li {
-    flex: 1 1 auto;
-    text-align: center;
   }
 }
