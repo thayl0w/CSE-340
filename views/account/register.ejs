@@ -1,48 +1,64 @@
-<link rel="stylesheet" href="/css/styles.css">
 <main>
-  <div class="login-card">
-    <h1>Register</h1>
-    <% if (locals.message) { %>
-      <p class="notice"><%= message %></p>
+    <h1>
+        <%= title %>
+    </h1>
+
+    <!-- Flash Messages -->
+    <%- messages() %>
+
+    <% if (errors) { %>
+       <ul class="notice">
+        <% errors.array().forEach(error => { %>
+         <li><%= error.msg %></li>
+        <%  }) %>
+       </ul>
     <% } %>
-    <% if (locals.errors) { %>
-      <p class="error"><%= errors %></p>
-    <% } %>
-    <form action="/account/register" method="post" class="login-form">
-      <label for="account_firstname">First Name</label>
-      <input type="text" name="account_firstname" id="account_firstname" required 
-        value="<%= locals.account_firstname ? account_firstname : '' %>">
 
-      <label for="account_lastname">Last Name</label>
-      <input type="text" name="account_lastname" id="account_lastname" required 
-        value="<%= locals.account_lastname ? account_lastname : '' %>">
+        <!-- Registration Form -->
+        <form action="/account/register" method="post" class="register-form">
+            <label for="account_firstname">First Name:</label>
+            <input type="text" id="account_firstname" name="account_firstname" required>
 
-      <label for="account_email">Email</label>
-      <input type="email" name="account_email" id="account_email" required 
-        value="<%= locals.account_email ? account_email : '' %>">
+            <label for="account_lastname">Last Name:</label>
+            <input type="text" id="account_lastname" name="account_lastname" required>
 
-      <label for="account_password">Password</label>
-      <input type="password" name="account_password" id="account_password" required 
-        pattern="(?=^.{12,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">
-      <em class="password-hint">
-        Passwords must be minimum of 12 characters and include 1 capital letter, 1 number and 1 special character.
-      </em>
-      <button type="button" class="show-password-btn" onclick="togglePassword()">Show Password</button>
+            <label for="account_email">Email:</label>
+            <input type="email" id="account_email" name="account_email" required placeholder="Enter a valid email address">
 
-      <input type="submit" value="Register" class="btn">
-    </form>
-    <div class="form-footer">
-      <p>Already have an account? <a href="/account/login">Login here</a></p>
-    </div>
-  </div>
+            <label for="account_password">Password:</label>
+            <div class="password-wrapper">
+                <input type="password" id="account_password" name="account_password" required>
+                <span class="toggle-eye" onclick="togglePassword()">👁</span>
+            </div>
+            <p id="password-rules" class="form-helper password-rules hidden">
+                Password must be at least 12 characters, include 1 uppercase letter, 1 number, and 1 special character.
+            </p>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p class="form-helper">
+            Already have an account?
+            <a href="/account/login">Log in</a>
+        </p>
 </main>
+    
+
 <script>
-function togglePassword() {
-  var pwd = document.getElementById('account_password');
-  if (pwd.type === 'password') {
-    pwd.type = 'text';
-  } else {
-    pwd.type = 'password';
-  }
-}
-</script> 
+    function togglePassword() {
+        const pw = document.getElementById("account_password");
+        pw.type = pw.type === "password" ? "text" : "password";
+    }
+
+    document.getElementById("account_password").addEventListener("input", function () {
+        const pw = this.value;
+        const rules = document.getElementById("password-rules");
+
+        const isValid = pw.length >= 12 &&
+            /[A-Z]/.test(pw) &&
+            /\d/.test(pw) &&
+            /[^A-Za-z0-9]/.test(pw);
+
+        rules.classList.toggle("hidden", isValid || pw.length === 0);
+    });
+</script>  

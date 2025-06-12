@@ -1,24 +1,51 @@
 <main>
-    <h1>Add New Classification</h1>
+  <h1>Add New Inventory</h1>
 
-    <% if (messages && messages.notice) { %>
-      <div class="notice"><%= messages.notice %></div>
-    <% } %>
-    
-    <% if (messages && messages.error) { %>
-      <div class="error"><%= messages.error %></div>
-    <% } %>
-    
-    <form action="/inv/add-classification" method="post">
-      <label for="classification_name">Classification Name</label>
-      <input 
-        type="text" 
-        id="classification_name" 
-        name="classification_name" 
-        required 
-        pattern="^[A-Za-z0-9]+$"
-        title="No spaces or special characters allowed."
-      >
-      <button type="submit">Add Classification</button>
-    </form>
+  <% if (typeof message !== "undefined" && message.length) { %>
+    <div class="flash-message"><%= message[0] %></div>
+  <% } %>   
+
+  <% if (errors && errors.length > 0) { %>
+    <div class="error-messages">
+      <ul>
+        <% errors.forEach(function(error) { %>
+          <li><%= error.msg %></li>
+        <% }) %>
+      </ul>
+    </div>
+  <% } %>
+
+  <form action="/inv/add-inventory" method="post">
+    <label for="classificationList">Classification</label>
+    <%- classificationList %>
+
+    <label for="inv_make">Make</label>
+    <input type="text" name="inv_make" id="inv_make" required value="<%= inv_make || '' %>">
+
+    <label for="inv_model">Model</label>
+    <input type="text" name="inv_model" id="inv_model" required value="<%= inv_model || '' %>">
+
+    <label for="inv_year">Year</label>
+    <input type="number" name="inv_year" id="inv_year" required value="<%= inv_year || '' %>">
+
+    <label for="inv_description">Description</label>
+    <textarea name="inv_description" id="inv_description" required><%= inv_description || '' %></textarea>
+
+    <label for="inv_image">Image Path</label>
+    <input type="text" name="inv_image" id="inv_image" required value="<%= inv_image || '/images/vehicles/no-image.png' %>">
+
+    <label for="inv_thumbnail">Thumbnail Path</label>
+    <input type="text" name="inv_thumbnail" id="inv_thumbnail" required value="<%= inv_thumbnail || '/images/vehicles/no-image.png' %>">
+
+    <label for="inv_price">Price</label>
+    <input type="number" step="0.01" name="inv_price" id="inv_price" required value="<%= inv_price || '' %>">
+
+    <label for="inv_miles">Miles</label>
+    <input type="number" name="inv_miles" id="inv_miles" required value="<%= inv_miles || '' %>">
+
+    <label for="inv_color">Color</label>
+    <input type="text" name="inv_color" id="inv_color" required value="<%= inv_color || '' %>">
+
+    <button type="submit">Add Inventory</button>
+  </form>
 </main>
