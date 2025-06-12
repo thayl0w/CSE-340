@@ -21,26 +21,28 @@ router.get(
 router.get("/cause-error", utilities.handleErrors(invController.causeError))
 
 // Route to inventory management view (Task 1)
-router.get("/", utilities.handleErrors(invController.buildManagement))
+router.get("/", utilities.requireEmployeeOrAdmin, utilities.handleErrors(invController.buildManagement))
 
 // Show form to add classification
 router.get(
   "/add-classification",
+  utilities.requireEmployeeOrAdmin,
   utilities.handleErrors(invController.buildAddClassification)
 )
 
 // Handle form submission
 router.post(
   "/add-classification",
+  utilities.requireEmployeeOrAdmin,
   invValidation.checkClassificationName,
   utilities.handleErrors(invController.addClassification)
 )
 
 // task 3 -- week 4
 // Show add inventory form
-router.get("/add-inventory", invController.buildAddInventory);
+router.get("/add-inventory", utilities.requireEmployeeOrAdmin, invController.buildAddInventory)
 
 // Handle add inventory form submission
-router.post("/add-inventory", invController.addInventory);
+router.post("/add-inventory", utilities.requireEmployeeOrAdmin, invController.addInventory)
 
 module.exports = router

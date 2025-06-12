@@ -110,4 +110,15 @@ Util.checkJWTToken = (req, res, next) => {
   }
 }
 
+/* ****************************************
+* Middleware to restrict to Employee/Admin
+**************************************** */
+Util.requireEmployeeOrAdmin = (req, res, next) => {
+  if (res.locals.loggedin && res.locals.accountData && (res.locals.accountData.account_type === 'Employee' || res.locals.accountData.account_type === 'Admin')) {
+    return next();
+  }
+  req.flash("notice", "You must be logged in as an Employee or Admin to access this page.");
+  return res.redirect("/account/login");
+}
+
 module.exports = Util

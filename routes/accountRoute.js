@@ -32,4 +32,29 @@ router.get(
   utilities.handleErrors(accountController.buildAccountManagement)
 );
 
+// GET: Show account update form
+router.get(
+  "/update",
+  utilities.handleErrors(accountController.buildAccountUpdate)
+)
+
+// POST: Process account info update
+router.post(
+  "/update",
+  regValidate.updateAccountRules(),
+  regValidate.checkUpdateAccountData,
+  utilities.handleErrors(accountController.updateAccount)
+)
+
+// POST: Process password update
+router.post(
+  "/update-password",
+  regValidate.updatePasswordRules(),
+  regValidate.checkUpdatePasswordData,
+  utilities.handleErrors(accountController.updatePassword)
+)
+
+// GET: Logout
+router.get("/logout", utilities.handleErrors(accountController.logout))
+
 module.exports = router;

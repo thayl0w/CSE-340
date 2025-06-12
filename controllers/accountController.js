@@ -111,11 +111,86 @@ async function buildAccountManagement(req, res) {
   })
 }
 
+// GET: Show account update form
+async function buildAccountUpdate(req, res, next) {
+  let nav = await utilities.getNav();
+  let account_id = req.query.account_id || req.body.account_id || (res.locals.accountData && res.locals.accountData.account_id);
+  const account = await accountModel.getAccountById(account_id);
+  res.render("account/update", {
+    title: "Edit Account",
+    nav,
+    account,
+    errors: null,
+    message: req.flash("notice")
+  });
+}
+
+// POST: Update account info
+async function updateAccount(req, res, next) {
+  let nav = await utilities.getNav();
+  const { account_id, account_firstname, account_lastname, account_email } = req.body;
+  const updated = await accountModel.updateAccount(account_id, account_firstname, account_lastname, account_email);
+  if (updated && !updated.message) {
+    req.flash("notice", "Account information updated successfully.");
+    return res.redirect("/account/");
+  } else {
+    req.flash("notice", "Account update failed.");
+    return res.render("account/update", {
+      title: "Edit Account",
+      nav,
+      account: req.body,
+      errors: [{ msg: updated.message || "Update failed." }]
+    });
+  }
+}
+
+// POST: Update password
+async function updatePassword(req, res, next) {
+  let nav = await utilities.getNav();
+  const { account_id, account_password } = req.body;
+  try {
+    const hashedPassword = await bcrypt.hash(account_password, 10);
+    const updated = await accountModel.updatePassword(account_id, hashedPassword);
+    if (updated && !updated.message) {
+      req.flash("notice", "Password updated successfully.");
+      return res.redirect("/account/");
+    } else {
+      req.flash("notice", "Password update failed.");
+      const account = await accountModel.getAccountById(account_id);
+      return res.render("account/update", {
+        title: "Edit Account",
+        nav,
+        account,
+        errors: [{ msg: updated.message || "Password update failed." }]
+      });
+    }
+  } catch (err) {
+    req.flash("notice", "Password update failed.");
+    const account = await accountModel.getAccountById(account_id);
+    return res.render("account/update", {
+      title: "Edit Account",
+      nav,
+      account,
+      errors: [{ msg: err.message || "Password update failed." }]
+    });
+  }
+}
+
+// GET: Logout
+function logout(req, res) {
+  res.clearCookie("jwt");
+  req.flash("notice", "You have been logged out.");
+  res.redirect("/");
+}
 
 module.exports = {
   buildLogin,
   buildRegister,
   registerAccount,
   accountLogin,
-  buildAccountManagement
+  buildAccountManagement,
+  buildAccountUpdate,
+  updateAccount,
+  updatePassword,
+  logout
 }
