@@ -1,0 +1,17 @@
+<main>
+    <div class="account-container">
+        <h1>Account Management</h1>
+        <% if (message) { %>
+            <div class="success-message"><%= message %></div>
+        <% } %>
+        <h2>Welcome <%= account.account_firstname %></h2>
+        <p>You're logged in.</p>
+        <a href="/account/update/<%= account.account_id %>">Edit Account Information</a>
+        <% if (account.account_type === "Employee" || account.account_type === "Admin") { %>
+            <div style="background:#fff;box-shadow:0 2px 8px rgba(26,35,126,0.10);padding:1rem;margin-top:1.5rem;">
+                <h3 style="margin:0 0 0.5rem 0;">Inventory Management</h3>
+                <a href="/inventory">Manage Inventory</a>
+            </div>
+        <% } %>
+    </div>
+</main>

@@ -1,0 +1,13 @@
+<meta http-equiv="refresh" content="2;url=<%= redirectUrl %>">
+<link rel="stylesheet" href="/css/styles.css">
+<main>
+  <div class="account-container">
+    <h1><%= title %></h1>
+    <p class="notice"><%= message %></p>
+    <% if (redirectUrl) { %>
+      <p>
+        <a href="<%= redirectUrl %>" class="btn">Continue</a>
+      </p>
+    <% } %>
+  </div>
+</main> 
