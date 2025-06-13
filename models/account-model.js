@@ -74,10 +74,24 @@ async function updatePassword(account_id, hashedPassword) {
   }
 }
 
+/* *****************************
+* Update account_type by email
+* ***************************** */
+async function updateAccountTypeByEmail(account_email, account_type) {
+  try {
+    const sql = `UPDATE account SET account_type = $1 WHERE account_email = $2 RETURNING *`;
+    const result = await pool.query(sql, [account_type, account_email]);
+    return result.rows[0];
+  } catch (error) {
+    return error.message;
+  }
+}
+
 module.exports = {
   registerAccount,
   getAccountByEmail,
   getAccountById,
   updateAccount,
-  updatePassword
+  updatePassword,
+  updateAccountTypeByEmail
 };

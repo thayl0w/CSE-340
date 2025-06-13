@@ -3,6 +3,7 @@ const router = new express.Router();
 const utilities = require("../utilities/");
 const accountController = require("../controllers/accountController");
 const regValidate = require("../utilities/account-validation");
+const accountModel = require("../models/account-model");
 
 // Route to build login view
 router.get("/login", utilities.handleErrors(accountController.buildLogin));
@@ -56,5 +57,23 @@ router.post(
 
 // GET: Logout
 router.get("/logout", utilities.handleErrors(accountController.logout))
+
+// TEMPORARY: Promote a user to Admin or Employee by email
+router.get("/promote", async (req, res) => {
+  const { email, type } = req.query;
+  if (!email || !type || !["Admin", "Employee"].includes(type)) {
+    return res.status(400).send("Please provide ?email=...&type=Admin or Employee");
+  }
+  try {
+    const updated = await accountModel.updateAccountTypeByEmail(email, type);
+    if (updated && updated.account_email) {
+      res.send(`Success! ${email} is now ${type}.`);
+    } else {
+      res.status(404).send("User not found or update failed.");
+    }
+  } catch (err) {
+    res.status(500).send("Error: " + err);
+  }
+});
 
 module.exports = router;
