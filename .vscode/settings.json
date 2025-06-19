@@ -6,11 +6,11 @@
                     "rejectUnauthorized": true
                 }
             },
-            "previewLimit": 50,
-            "server": "localhost",
-            "driver": "PostgreSQL",
-            "name": "render.com",
-            "connectString": "postgresql://sylamarie:gst1HPX8uNb8HGU82hZCDUwiARBLf6mq@dpg-d0di7e9r0fns73991o3g-a.singapore-postgres.render.com/sylamarie"
-        }
+         "previewLimit": 50,
+  "server": "dpg-d19gvlfgi27c73crhbi0-a.singapore-postgres.render.com",
+  "driver": "PostgreSQL",
+  "name": "CSE340 Database",
+  "connectString": "postgresql://cse340_db:V95SoRR0XdCF0CEqtkX27CwKCzgKKYxj@dpg-d19gvlfgi27c73crhbi0-a.singapore-postgres.render.com/cse340_db_1wb2"
+}
     ]
 }
