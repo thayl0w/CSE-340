@@ -25,18 +25,24 @@ const validateClassification = [
   }
 ]
 
-// task 3 -- week 4 -- Add Inventory Validation
+// Task 3 -- Week 4 -- Add Inventory Validation
 const inventoryRules = () => {
   return [
     body("classification_id").notEmpty().withMessage("Classification is required."),
     body("inv_make").trim().notEmpty().withMessage("Make is required."),
     body("inv_model").trim().notEmpty().withMessage("Model is required."),
-    body("inv_year").isInt({ min: 1900 }).withMessage("Year must be valid."),
+    body("inv_year")
+      .isInt({ min: 1900 })
+      .withMessage("Year must be valid."),
     body("inv_description").notEmpty().withMessage("Description is required."),
     body("inv_image").notEmpty().withMessage("Image path is required."),
     body("inv_thumbnail").notEmpty().withMessage("Thumbnail path is required."),
-    body("inv_price").isFloat({ min: 0 }).withMessage("Price must be a number."),
-    body("inv_miles").isInt({ min: 0 }).withMessage("Miles must be a valid number."),
+    body("inv_price")
+      .isFloat({ min: 0 })
+      .withMessage("Price must be a number."),
+    body("inv_miles")
+      .isInt({ min: 0 })
+      .withMessage("Miles must be a valid number."),
     body("inv_color").notEmpty().withMessage("Color is required.")
   ]
 }
@@ -55,8 +61,12 @@ const checkInventoryData = async (req, res, next) => {
   next()
 }
 
+// Alias checkUpdateData to reuse checkInventoryData
+const checkUpdateData = checkInventoryData
+
 module.exports = {
-    checkClassificationName: validateClassification,
-    inventoryRules,
-    checkInventoryData
+  checkClassificationName: validateClassification,
+  inventoryRules,
+  checkInventoryData,
+  checkUpdateData 
 }

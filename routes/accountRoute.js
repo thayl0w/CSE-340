@@ -2,8 +2,8 @@ const express = require("express");
 const router = new express.Router();
 const utilities = require("../utilities/");
 const accountController = require("../controllers/accountController");
-const regValidate = require("../utilities/account-validation");
-const accountModel = require("../models/account-model");
+const invController = require("../controllers/invController");
+const accValidate = require('../utilities/account-validation');
 
 // Route to build login view
 router.get("/login", utilities.handleErrors(accountController.buildLogin));
@@ -14,66 +14,53 @@ router.get("/register", utilities.handleErrors(accountController.buildRegister))
 // Process the registration data
 router.post(
   "/register",
-  regValidate.registrationRules(),
-  regValidate.checkRegData,
+  accValidate.registrationRules(),
+  accValidate.checkRegData,
   utilities.handleErrors(accountController.registerAccount)
 );
 
 // Process the login request
 router.post(
   "/login",
-  regValidate.loginRules(),
-  regValidate.checkLoginData,
+  accValidate.loginRules(),
+  accValidate.checkLoginData,
   utilities.handleErrors(accountController.accountLogin)
 );
 
 // Deliver account management view
 router.get(
-  "/",
+  "/", 
+  utilities.checkLogin, 
   utilities.handleErrors(accountController.buildAccountManagement)
 );
 
-// GET: Show account update form
+// Logout route
 router.get(
-  "/update",
-  utilities.handleErrors(accountController.buildAccountUpdate)
-)
+  "/logout",
+  utilities.handleErrors(accountController.logout)
+);
 
-// POST: Process account info update
+// Route to build edit account form
+router.get(
+  "/update/:account_id",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.buildUpdateForm)
+);
+
+// POST: Update Account Info
 router.post(
   "/update",
-  regValidate.updateAccountRules(),
-  regValidate.checkUpdateAccountData,
+  accValidate.updateAccountRules(), // ✅ validation for name/email
+  accValidate.checkUpdateData,
   utilities.handleErrors(accountController.updateAccount)
-)
+);
 
-// POST: Process password update
+// POST: Change Password
 router.post(
   "/update-password",
-  regValidate.updatePasswordRules(),
-  regValidate.checkUpdatePasswordData,
+  // accValidate.passwordRules() — 🔴 this is missing from your file, so it's commented out for now
+  accValidate.checkPasswordUpdateData,
   utilities.handleErrors(accountController.updatePassword)
-)
-
-// GET: Logout
-router.get("/logout", utilities.handleErrors(accountController.logout))
-
-// TEMPORARY: Promote a user to Admin or Employee by email
-router.get("/promote", async (req, res) => {
-  const { email, type } = req.query;
-  if (!email || !type || !["Admin", "Employee"].includes(type)) {
-    return res.status(400).send("Please provide ?email=...&type=Admin or Employee");
-  }
-  try {
-    const updated = await accountModel.updateAccountTypeByEmail(email, type);
-    if (updated && updated.account_email) {
-      res.send(`Success! ${email} is now ${type}.`);
-    } else {
-      res.status(404).send("User not found or update failed.");
-    }
-  } catch (err) {
-    res.status(500).send("Error: " + err);
-  }
-});
+);
 
 module.exports = router;

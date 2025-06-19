@@ -1,5 +1,5 @@
 <main>
-  <h1>Add New Inventory</h1>
+  <h1>Edit <%= inv_make %> <%= inv_model %></h1>
 
   <% if (typeof message !== "undefined" && message.length) { %>
     <div class="flash-message"><%= message[0] %></div>
@@ -15,8 +15,11 @@
     </div>
   <% } %>
 
-  <form action="/inv/add-inventory" method="post">
-    <label for="classification_id">Classification</label>
+  <!-- Important: Send the inv_id for the update -->
+  <form id="updateForm" action="/inv/update" method="post">
+    <input type="hidden" name="inv_id" id="inv_id" value="<%= inv_id %>">
+
+    <label for="classificationList">Classification</label>
     <%- classificationList %>
 
     <label for="inv_make">Make</label>
@@ -46,9 +49,8 @@
     <label for="inv_color">Color</label>
     <input type="text" name="inv_color" id="inv_color" required value="<%= inv_color || '' %>">
 
-    <button type="submit">Add Inventory</button>
-    <!-- <pre><%= JSON.stringify(nav, null, 2) %></pre>
-    <pre><%= classificationList %></pre> -->
-
+    <button type="submit" disabled>Update Vehicle</button>
   </form>
 </main>
+
+<script src="/js/inv-update.js"></script>

@@ -12,7 +12,7 @@ async function registerAccount(account_firstname, account_lastname, account_emai
         ($1, $2, $3, $4, 'Client') 
       RETURNING *`;
     const result = await pool.query(sql, [account_firstname, account_lastname, account_email, account_password]);
-    return result.rows[0];  // Return the inserted account object
+    return result.rows[0];
   } catch (error) {
     return error.message;
   }
@@ -23,67 +23,55 @@ async function registerAccount(account_firstname, account_lastname, account_emai
 * ***************************** */
 async function getAccountByEmail(account_email) {
   try {
-    const result = await pool.query(
-      'SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password FROM account WHERE account_email = $1',
-      [account_email]
-    )
-    return result.rows[0]
+    const sql = `
+      SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password 
+      FROM account 
+      WHERE account_email = $1`;
+    const result = await pool.query(sql, [account_email]);
+    return result.rows[0];
   } catch (error) {
-    return new Error("No matching email found")
+    return new Error("No matching email found");
   }
 }
 
-/* *****************************
-* Return account data using account_id
-* ***************************** */
+// Get account by ID
 async function getAccountById(account_id) {
   try {
-    const result = await pool.query(
-      'SELECT account_id, account_firstname, account_lastname, account_email, account_type FROM account WHERE account_id = $1',
-      [account_id]
-    )
-    return result.rows[0]
-  } catch (error) {
-    return new Error("No matching account found")
-  }
-}
-
-/* *****************************
-* Update account info (first, last, email) by id
-* ***************************** */
-async function updateAccount(account_id, account_firstname, account_lastname, account_email) {
-  try {
-    const sql = `UPDATE account SET account_firstname = $1, account_lastname = $2, account_email = $3 WHERE account_id = $4 RETURNING *`;
-    const result = await pool.query(sql, [account_firstname, account_lastname, account_email, account_id]);
+    const sql = `SELECT * FROM account WHERE account_id = $1`;
+    const result = await pool.query(sql, [account_id]);
     return result.rows[0];
   } catch (error) {
-    return error.message;
+    return null;
   }
 }
 
-/* *****************************
-* Update password hash by id
-* ***************************** */
+// Update account info
+async function updateAccountInfo(account_id, firstname, lastname, email) {
+  try {
+    const sql = `
+      UPDATE account
+      SET account_firstname = $1, account_lastname = $2, account_email = $3
+      WHERE account_id = $4
+      RETURNING *`;
+    const result = await pool.query(sql, [firstname, lastname, email, account_id]);
+    return result.rows[0];
+  } catch (error) {
+    console.error("Update failed:", error);
+    return null;
+  }
+}
+
+// Update password
 async function updatePassword(account_id, hashedPassword) {
   try {
-    const sql = `UPDATE account SET account_password = $1 WHERE account_id = $2 RETURNING *`;
+    const sql = `
+      UPDATE account
+      SET account_password = $1
+      WHERE account_id = $2`;
     const result = await pool.query(sql, [hashedPassword, account_id]);
-    return result.rows[0];
+    return result.rowCount > 0;
   } catch (error) {
-    return error.message;
-  }
-}
-
-/* *****************************
-* Update account_type by email
-* ***************************** */
-async function updateAccountTypeByEmail(account_email, account_type) {
-  try {
-    const sql = `UPDATE account SET account_type = $1 WHERE account_email = $2 RETURNING *`;
-    const result = await pool.query(sql, [account_type, account_email]);
-    return result.rows[0];
-  } catch (error) {
-    return error.message;
+    return false;
   }
 }
 
@@ -91,7 +79,6 @@ module.exports = {
   registerAccount,
   getAccountByEmail,
   getAccountById,
-  updateAccount,
-  updatePassword,
-  updateAccountTypeByEmail
+  updateAccountInfo,
+  updatePassword
 };

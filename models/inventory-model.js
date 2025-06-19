@@ -1,4 +1,5 @@
 const pool = require("../database/")
+const invModel = require("../models/inventory-model")
 
 async function getClassifications() {
   return await pool.query("SELECT * FROM public.classification ORDER BY classification_name")
@@ -88,11 +89,98 @@ async function addInventoryItem(
   }
 }
 
+/* ***************************
+ *  Update Inventory Data
+ * ************************** */
+async function updateInventory(
+  inv_id,
+  inv_make,
+  inv_model,
+  inv_description,
+  inv_image,
+  inv_thumbnail,
+  inv_price,
+  inv_year,
+  inv_miles,
+  inv_color,
+  classification_id
+) {
+  try {
+    const sql =
+      "UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_description = $3, inv_image = $4, inv_thumbnail = $5, inv_price = $6, inv_year = $7, inv_miles = $8, inv_color = $9, classification_id = $10 WHERE inv_id = $11 RETURNING *"
+    const data = await pool.query(sql, [
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_year,
+      inv_miles,
+      inv_color,
+      classification_id,
+      inv_id
+    ])
+    return data.rows[0]
+  } catch (error) {
+    console.error("model error: " + error)
+  }
+}
+
+async function deleteInventoryItem(inv_id) {
+  try {
+    const data = await pool.query(
+      "DELETE FROM inventory WHERE inv_id = $1",
+      [inv_id]
+    );
+    return data;
+  } catch (error) {
+    console.error("deleteInventoryItem error:", error);
+    throw error;
+  }
+}
+
+async function buildManageClassifications(req, res) {
+  const nav = await utilities.getNav();
+  const classifications = await invModel.getClassifications();
+  res.render("inventory/manage-classification", {
+    title: "Manage Classifications",
+    nav,
+    classifications
+  });
+}
+
+// Get all classifications
+async function getAllClassifications() {
+  return await pool.query("SELECT * FROM classification ORDER BY classification_name");
+}
+
+// Update a classification
+async function updateClassification(id, newName) {
+  return await pool.query(
+    "UPDATE classification SET classification_name = $1 WHERE classification_id = $2",
+    [newName, id]
+  );
+}
+
+// Delete a classification
+async function deleteClassification(id) {
+  return await pool.query(
+    "DELETE FROM classification WHERE classification_id = $1",
+    [id]
+  );
+}
 
 module.exports = {
   getClassifications,
   getInventoryByClassificationId,
   getInventoryById,
   addClassification,
-  addInventoryItem
+  addInventoryItem,
+  updateInventory,
+  deleteInventoryItem,
+  getAllClassifications,
+  updateClassification,
+  deleteClassification,
+  buildManageClassifications
 }

@@ -96,29 +96,43 @@ Util.checkJWTToken = (req, res, next) => {
         if (err) {
           req.flash("notice", "Please log in")
           res.clearCookie("jwt")
-          res.locals.loggedin = 0 // ✅ must be here
+          res.locals.loggedin = 0
           return res.redirect("/account/login")
         }
         res.locals.accountData = accountData
-        res.locals.loggedin = 1 // ✅ critical
+        res.locals.loggedin = 1
         next()
       }
     )
   } else {
-    res.locals.loggedin = 0 // ✅ must be here
+    res.locals.loggedin = 0
     next()
   }
 }
 
 /* ****************************************
-* Middleware to restrict to Employee/Admin
-**************************************** */
-Util.requireEmployeeOrAdmin = (req, res, next) => {
-  if (res.locals.loggedin && res.locals.accountData && (res.locals.accountData.account_type === 'Employee' || res.locals.accountData.account_type === 'Admin')) {
-    return next();
+ *  Check Login
+ * ************************************ */
+Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next()
+  } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
   }
-  req.flash("notice", "You must be logged in as an Employee or Admin to access this page.");
-  return res.redirect("/account/login");
+}
+
+/* ****************************************
+ *  Check if user is Admin or Employee
+ * ************************************ */
+Util.checkAccountType = (req, res, next) => {
+  const accountType = res.locals.accountData?.account_type
+  if (accountType === "Admin" || accountType === "Employee") {
+    return next()
+  } else {
+    req.flash("notice", "Access denied. You do not have permission.")
+    return res.redirect("/account/login")
+  }
 }
 
 module.exports = Util

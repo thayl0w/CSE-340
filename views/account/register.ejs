@@ -46,19 +46,17 @@
 
 <script>
     function togglePassword() {
-        const pw = document.getElementById("account_password");
-        pw.type = pw.type === "password" ? "text" : "password";
+        const pwdInput = document.getElementById("account_password");
+        const toggleBtn = document.getElementById("togglePasswordBtn");
+
+        if (pwdInput.type === "password") {
+            pwdInput.type = "text";
+            toggleBtn.textContent = "Hide";
+        } else {
+            pwdInput.type = "password";
+            toggleBtn.textContent = "Show";
+        }
     }
 
-    document.getElementById("account_password").addEventListener("input", function () {
-        const pw = this.value;
-        const rules = document.getElementById("password-rules");
-
-        const isValid = pw.length >= 12 &&
-            /[A-Z]/.test(pw) &&
-            /\d/.test(pw) &&
-            /[^A-Za-z0-9]/.test(pw);
-
-        rules.classList.toggle("hidden", isValid || pw.length === 0);
-    });
-</script>  
+    document.getElementById("togglePasswordBtn").addEventListener("click", togglePassword);
+</script>    

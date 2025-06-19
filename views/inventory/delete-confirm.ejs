@@ -1,0 +1,21 @@
+<main>
+    <h1>Delete <%= itemName %></h1>
+    <% if (message.length) { %>
+      <div class="flash-message"><%= message[0] %></div>
+    <% } %>
+  
+    <p>Are you sure you want to delete this inventory item?</p>
+  
+    <ul>
+      <li><strong>Make:</strong> <%= inv_make %></li>
+      <li><strong>Model:</strong> <%= inv_model %></li>
+      <li><strong>Year:</strong> <%= inv_year %></li>
+      <li><strong>Price:</strong> $<%= inv_price %></li>
+    </ul>
+  
+    <form action="/inv/delete" method="post">
+      <input type="hidden" name="inv_id" value="<%= inv_id %>" />
+      <button type="submit">Yes, Delete</button>
+      <a href="/inv/">Cancel</a>
+    </form>
+  </main>  

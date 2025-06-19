@@ -1,0 +1,58 @@
+<main>
+  <h1><%= title %></h1>
+
+  <% if (errors && errors.length > 0) { %>
+    <div class="error-messages">
+      <ul>
+        <% errors.forEach(function(error) { %>
+          <li><%= error.msg %></li>
+        <% }) %>
+      </ul>
+    </div>
+  <% } %>
+
+  <form action="/account/update" method="post">
+    <label for="account_firstname">First Name</label>
+    <input type="text" id="account_firstname" name="account_firstname" required 
+           value="<%= accountData.account_firstname %>">
+
+    <label for="account_lastname">Last Name</label>
+    <input type="text" id="account_lastname" name="account_lastname" required 
+           value="<%= accountData.account_lastname %>">
+
+    <label for="account_email">Email</label>
+    <input type="email" id="account_email" name="account_email" required 
+           value="<%= accountData.account_email %>">
+
+    <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
+
+    <button type="submit">Update Account</button>
+  </form>
+
+  <hr>
+
+  <h2>Change Password</h2>
+  <form action="/account/update-password" method="post">
+    <label for="account_password">New Password</label>
+    <div class="password-box">
+        <input type="password" id="account_password" name="account_password" required>
+        <button type="button" id="togglePasswordBtn" class="toggle-btn">Show</button>
+    </div>
+
+    <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
+
+    <button type="submit">Change Password</button>
+  </form>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const pwdInput = document.getElementById("account_password");
+        const toggleBtn = document.getElementById("togglePasswordBtn");
+
+        toggleBtn.addEventListener("click", function () {
+            const isHidden = pwdInput.type === "password";
+            pwdInput.type = isHidden ? "text" : "password";
+            toggleBtn.textContent = isHidden ? "Hide" : "Show";
+            });
+        });
+    </script>
+</main>
